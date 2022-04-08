@@ -31,7 +31,6 @@ productRouter
     .route('/:id')
     .all((req, res, next) => {
         const isValidId = mongoose.Types.ObjectId.isValid(req.params.id);
-        console.log('isvalid: ', isValidId);
         if (isValidId) next();
         else res.end(`Product ID: ${req.params.id} not found`);
     })
@@ -41,6 +40,11 @@ productRouter
             .catch((err) => next(err));
     })
     .put((req, res, next) => {
+        Product.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+            .then((product) => res.json(product))
+            .catch((err) => next(err));
+    })
+    .patch((req, res, next) => {
         Product.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
             .then((product) => res.json(product))
             .catch((err) => next(err));
