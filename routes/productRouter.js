@@ -17,6 +17,7 @@ productRouter
             .catch((err) => next(err));
     })
     .post((req, res, next) => {
+        console.log(req.body === true);
         if (req.body) {
             Product.create(req.body)
                 .then((product) => res.json(product))
@@ -50,32 +51,5 @@ productRouter
             .catch((err) => next(err));
     })
     .post((req, res) => res.end(`PUT operation not supported on /products/${req.params.id}`));
-
-productRouter
-    .route('/categories')
-    .get((req, res, next) => {
-        Product.distinct('category')
-            .then((category) => res.json(category))
-            .catch((err) => next(err));
-    })
-    .post((req, res) => res.end(`DELETE operation not supported on /products/categories`))
-    .put((req, res) => res.end(`DELETE operation not supported on /products/categories`))
-    .delete((req, res) => res.end(`DELETE operation not supported on /products/categories`));
-
-// Get Products per Category
-productRouter
-    .route('/category/:category')
-    .all((req, res, next) => {
-        if (mongoose.Types.ObjectId.isValid(req.params.category)) next();
-        else res.end(`Categogy: ${req.params.category} not found`);
-    })
-    .get((req, res, next) => {
-        Product.find({ category: req.params.category })
-            .then((products) => res.json(products))
-            .catch((err) => next(err));
-    })
-    .post((req, res) => res.end(`DELETE operation not supported on /products/categories/${req.params.category}`))
-    .put((req, res) => res.end(`DELETE operation not supported on /products/categories/${req.params.category}`))
-    .delete((req, res) => res.end(`DELETE operation not supported on /products/categories/${req.params.category}`));
 
 module.exports = productRouter;

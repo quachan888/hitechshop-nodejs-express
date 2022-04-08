@@ -11,9 +11,9 @@ categoryRouter
             .then((category) => res.json(category))
             .catch((err) => next(err));
     })
-    .post((req, res) => res.end(`DELETE operation not supported on /products/categories`))
-    .put((req, res) => res.end(`DELETE operation not supported on /products/categories`))
-    .delete((req, res) => res.end(`DELETE operation not supported on /products/categories`));
+    .post((req, res) => res.end(`POST operation not supported on /categories`))
+    .put((req, res) => res.end(`PUT operation not supported on /categories`))
+    .delete((req, res) => res.end(`DELETE operation not supported on /categories`));
 
 // Get Products per Category
 categoryRouter
@@ -23,8 +23,8 @@ categoryRouter
             .then((products) => res.json(products))
             .catch((err) => next(err));
     })
-    .post((req, res) => res.end(`DELETE operation not supported on /products/categories/${req.params.category}`))
-    .put((req, res) => res.end(`DELETE operation not supported on /products/categories/${req.params.category}`))
-    .delete((req, res) => res.end(`DELETE operation not supported on /products/categories/${req.params.category}`));
+    .post((req, res) => res.end(`POST operation not supported on /categories/${req.params.category}`))
+    .put((req, res) => res.end(`PUT operation not supported on /categories/${req.params.category}`))
+    .delete((req, res) => res.end(`DELETE operation not supported on /categories/${req.params.category}`));
 
 module.exports = categoryRouter;
